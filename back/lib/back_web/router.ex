@@ -8,8 +8,9 @@ defmodule BackWeb.Router do
   # https://hexdocs.pm/phoenix/json_and_apis.html
   scope "/api", BackWeb do
     pipe_through :api
-    resources "/users", UserController, except: [:new, :edit]
-    resources "/rooms", RoomController, except: [:new, :edit]
+    resources "/users", UserController, except: [:new, :edit, :delete]
+    resources "/rooms", RoomController, except: [:new, :edit, :delete]
+    resources "/messages", MessageController, only: [:create, :update, :delete]
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
