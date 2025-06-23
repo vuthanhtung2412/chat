@@ -1,10 +1,29 @@
 GET http://localhost:4000/api/users
+GET http://localhost:4000/api/rooms
+GET http://localhost:4000/api/messages
 
 POST http://localhost:4000/api/users
 Content-Type: application/json
 { 
   "user" : {
-    "name": "foo"
+    "name": "first user"
   }
 }
 
+POST http://localhost:4000/api/rooms
+Content-Type: application/json
+{ 
+  "room" : {
+    "name": "first room"
+  }
+}
+
+POST http://localhost:4000/api/rooms
+Content-Type: application/json
+{ 
+  "message" : {
+    "content": "first message",
+    "user_id": 1,
+    "room_id": 1
+  }
+}
