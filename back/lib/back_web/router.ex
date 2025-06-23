@@ -5,8 +5,10 @@ defmodule BackWeb.Router do
     plug :accepts, ["json"]
   end
 
+  # https://hexdocs.pm/phoenix/json_and_apis.html
   scope "/api", BackWeb do
     pipe_through :api
+    resources "/users", UserController, except: [:new, :edit]
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
