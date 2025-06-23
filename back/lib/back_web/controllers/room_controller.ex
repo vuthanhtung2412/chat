@@ -40,4 +40,9 @@ defmodule BackWeb.RoomController do
       send_resp(conn, :no_content, "")
     end
   end
+
+  def show_messages(conn, %{"id" => id}) do
+    messages = Rooms.get_room_messages(id)
+    json(conn, %{data: messages})
+  end
 end

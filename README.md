@@ -25,4 +25,10 @@ type Message = {
   userId: string;
   roomId: string;
 };
+
+type RoomMessage = {
+  content: string;
+  username: string;
+  insertedAt: Date;
+};
 ```

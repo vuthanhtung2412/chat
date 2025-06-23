@@ -1,6 +1,7 @@
 GET http://localhost:4000/api/users
 GET http://localhost:4000/api/rooms
 GET http://localhost:4000/api/messages
+GET http://localhost:4000/api/rooms/1/messages
 
 POST http://localhost:4000/api/users
 Content-Type: application/json
@@ -18,7 +19,7 @@ Content-Type: application/json
   }
 }
 
-POST http://localhost:4000/api/rooms
+POST http://localhost:4000/api/messages
 Content-Type: application/json
 { 
   "message" : {
