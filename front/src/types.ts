@@ -17,6 +17,6 @@ export type Message = {
 
 export type RoomMessage = {
   content: string;
-  username: string;
+  userName: string;
   insertedAt: Date;
 };

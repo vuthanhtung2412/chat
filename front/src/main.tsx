@@ -12,12 +12,14 @@ createRoot(document.getElementById("root")!).render(
     <HashRouter>
       <SidebarProvider>
         <AppSidebar />
-        <main>
+        <main className="flex-1 flex flex-col h-screen">
           <SidebarTrigger />
-          <Routes>
-            <Route path="/" element={<App />} />
-            <Route path="rooms/:room_id" element={<Room />} />
-          </Routes>
+          <div className="flex-1">
+            <Routes>
+              <Route path="/" element={<App />} />
+              <Route path="rooms/:room_id" element={<Room />} />
+            </Routes>
+          </div>
         </main>
       </SidebarProvider>
     </HashRouter>
