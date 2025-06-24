@@ -1,4 +1,5 @@
 defmodule BackWeb.UserController do
+  import Ecto.Query, only: [from: 2]
   use PhoenixSwagger, otp_app: :back
   use BackWeb, :controller
 
@@ -73,5 +74,18 @@ defmodule BackWeb.UserController do
     with {:ok, %User{}} <- Accounts.delete_user(user) do
       send_resp(conn, :no_content, "")
     end
+  end
+
+  def get_by_name(conn, %{"name" => name}) do
+    alias Back.Repo
+    alias Back.Accounts.User
+
+    query =
+      from u in User,
+        where: u.name == ^name
+
+    user = Repo.one(query)
+
+    render(conn, :show, user: user)
   end
 end

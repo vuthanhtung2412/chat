@@ -9,16 +9,18 @@ defmodule BackWeb.Router do
   scope "/api", BackWeb do
     pipe_through :api
     resources "/users", UserController, except: [:new, :edit]
+    # TODO: This is not clean
+    get "/users/name/:name", UserController, :get_by_name
     resources "/rooms", RoomController, except: [:new, :edit]
     get "/rooms/:id/messages", RoomController, :show_messages
     resources "/messages", MessageController, except: [:new, :edit]
   end
 
   scope "/api/swagger" do
-    forward "/", 
-      PhoenixSwagger.Plug.SwaggerUI, 
-      otp_app: :back, 
-      swagger_file: "swagger.json"
+    forward "/",
+            PhoenixSwagger.Plug.SwaggerUI,
+            otp_app: :back,
+            swagger_file: "swagger.json"
   end
 
   def swagger_info do
