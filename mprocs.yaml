@@ -1,0 +1,7 @@
+procs:
+  back:
+    shell: "mise run start"
+    cwd: "./back"
+  front:
+    shell: "pnpm dev"
+    cwd: "./front"
