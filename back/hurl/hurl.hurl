@@ -33,7 +33,7 @@ POST http://localhost:4000/api/rooms
 Content-Type: application/json
 { 
   "room" : {
-    "name": "first room"
+    "name": "second room"
   }
 }
 

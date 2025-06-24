@@ -12,8 +12,10 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarFooter,
+  SidebarHeader,
 } from "@/components/ui/sidebar"
 import { User } from "@/types"
+import { NewRoomDialog } from "./new-room-dialog"
 
 type AppSidebarProps = {
   user: User | null
@@ -21,24 +23,28 @@ type AppSidebarProps = {
 
 export function AppSidebar({ user }: AppSidebarProps) {
   const [rooms, setRooms] = useState<Room[]>([])
-
-  useEffect(() => {
-    const fetchRooms = async () => {
-      try {
-        const response = await fetch(`${BACKEND_URL}/api/rooms`)
-        if (response.ok) {
-          const { data: data } = await response.json()
-          setRooms(data)
-        }
-      } catch (error) {
-        console.error('Failed to fetch rooms:', error)
+  // Fetch rooms function to load and refresh room list
+  const fetchRooms = async () => {
+    try {
+      const response = await fetch(`${BACKEND_URL}/api/rooms`)
+      if (response.ok) {
+        const { data } = await response.json()
+        setRooms(data)
       }
+    } catch (error) {
+      console.error('Failed to fetch rooms:', error)
     }
-
+  }
+  // Initial load of rooms
+  useEffect(() => {
     fetchRooms()
   }, [])
+
   return (
     <Sidebar>
+      <SidebarHeader>
+        <NewRoomDialog onRoomCreated={fetchRooms} />
+      </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel>Rooms</SidebarGroupLabel>

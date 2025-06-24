@@ -1,7 +1,7 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import Home from "@/components/home";
-import Room from "@/components/room";
+import Chat from "@/components/chat";
 import "@/styles/globals.css";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
 import { AppSidebar } from "@/components/app-sidebar"
@@ -36,7 +36,7 @@ function App() {
             <div className="flex-1">
               <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="rooms/:room_id" element={<Room />} />
+                <Route path="rooms/:room_id" element={<Chat />} />
                 <Route path="x" element={<X />} />
               </Routes>
             </div>
