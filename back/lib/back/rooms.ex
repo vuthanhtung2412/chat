@@ -8,6 +8,20 @@ defmodule Back.Rooms do
 
   alias Back.Rooms.Room
 
+  defmodule RoomMessage do
+    @moduledoc """
+    Struct for room message data returned from queries.
+    """
+    @derive Jason.Encoder
+    defstruct [:content, :userName, :insertedAt]
+
+    @type t :: %__MODULE__{
+            content: String.t(),
+            userName: String.t(),
+            insertedAt: DateTime.t()
+          }
+  end
+
   @doc """
   Returns the list of rooms.
 
@@ -105,23 +119,24 @@ defmodule Back.Rooms do
   alias Back.Rooms.Message
 
   def get_room_messages(id) do
-    result = Ecto.Adapters.SQL.query!(
-      Repo,
-      """
-      SELECT messages.content, users.name, messages.inserted_at
-      FROM messages JOIN users 
-      ON users.id = messages.user_id
-      WHERE messages.room_id = $1
-      ORDER BY messages.inserted_at DESC
-      """,
-      [id]
-    )
-    
+    result =
+      Ecto.Adapters.SQL.query!(
+        Repo,
+        """
+        SELECT messages.content, users.name, messages.inserted_at
+        FROM messages JOIN users 
+        ON users.id = messages.user_id
+        WHERE messages.room_id = $1
+        ORDER BY messages.inserted_at DESC
+        """,
+        [id]
+      )
+
     Enum.map(result.rows, fn [content, user_name, inserted_at] ->
-      %{
+      %RoomMessage{
         content: content,
-        user_name: user_name,
-        inserted_at: inserted_at
+        userName: user_name,
+        insertedAt: inserted_at
       }
     end)
   end

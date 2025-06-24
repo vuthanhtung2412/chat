@@ -11,6 +11,14 @@ Content-Type: application/json
   }
 }
 
+POST http://localhost:4000/api/users
+Content-Type: application/json
+{ 
+  "user" : {
+    "name": "second user"
+  }
+}
+
 POST http://localhost:4000/api/rooms
 Content-Type: application/json
 { 
