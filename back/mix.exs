@@ -10,7 +10,8 @@ defmodule Back.MixProject do
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps(),
-      listeners: [Phoenix.CodeReloader]
+      listeners: [Phoenix.CodeReloader],
+      compilers: [:phoenix, :gettext] ++ Mix.compilers() ++ [:phoenix_swagger]
     ]
   end
 
@@ -45,7 +46,10 @@ defmodule Back.MixProject do
       {:gettext, "~> 0.26"},
       {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.1.1"},
-      {:bandit, "~> 1.5"}
+      {:bandit, "~> 1.5"},
+      {:phoenix_swagger, "~> 0.8"},
+      # optional
+      {:ex_json_schema, "~> 0.5"}
     ]
   end
 

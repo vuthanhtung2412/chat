@@ -1,0 +1,59 @@
+{
+  "info": {
+    "version": "1.0",
+    "title": "My App"
+  },
+  "host": "localhost:4000",
+  "definitions": {
+    "User": {
+      "description": "A user of the application",
+      "example": {
+        "id": "123",
+        "name": "Joe"
+      },
+      "properties": {
+        "id": {
+          "description": "User id",
+          "type": "integer"
+        },
+        "name": {
+          "description": "User name (unique for each user)",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "id"
+      ],
+      "title": "User",
+      "type": "object"
+    },
+    "Users": {
+      "description": "A collection of Users",
+      "items": {
+        "$ref": "#/definitions/User"
+      },
+      "title": "Users",
+      "type": "array"
+    }
+  },
+  "paths": {
+    "/api/users": {
+      "get": {
+        "description": "List all users",
+        "operationId": "BackWeb.UserController.index",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "User"
+        ]
+      }
+    }
+  },
+  "swagger": "2.0"
+}

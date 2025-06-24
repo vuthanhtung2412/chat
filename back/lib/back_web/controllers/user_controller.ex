@@ -1,10 +1,44 @@
 defmodule BackWeb.UserController do
+  use PhoenixSwagger, otp_app: :back
   use BackWeb, :controller
 
   alias Back.Accounts
   alias Back.Accounts.User
 
   action_fallback BackWeb.FallbackController
+
+  def swagger_definitions do
+    %{
+      User:
+        swagger_schema do
+          title("User")
+          description("A user of the application")
+
+          properties do
+            id(:integer, "User id", required: true)
+            name(:string, "User name (unique for each user)", required: true)
+          end
+
+          example(%{
+            id: "123",
+            name: "Joe"
+          })
+        end,
+      Users:
+        swagger_schema do
+          title("Users")
+          description("A collection of Users")
+          type(:array)
+          items(Schema.ref(:User))
+        end
+    }
+  end
+
+  swagger_path :index do
+    get("/api/users")
+    description("List all users")
+    response(200, "Success")
+  end
 
   def index(conn, _params) do
     users = Accounts.list_users()
