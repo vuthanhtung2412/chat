@@ -27,10 +27,13 @@ export default function Rooom({ className, ...props }: React.ComponentProps<"for
     }
 
     fetchMessages()
-  }, [])
+  }, [room_id])
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    console.log("handleSubmit called")
+    e.preventDefault()
+    // void append({ content: input, role: "user" })
+    console.log("Submitting message:", input)
+    setInput("")
   }
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -40,18 +43,6 @@ export default function Rooom({ className, ...props }: React.ComponentProps<"for
     }
   }
 
-  const header = (
-    <header className="m-auto flex max-w-96 flex-col gap-5 text-center">
-      <h1 className="text-2xl font-semibold leading-none tracking-tight">Basic AI Chatbot Template</h1>
-      <p className="text-muted-foreground text-sm">
-        This is an AI chatbot app template built with <span className="text-foreground">Next.js</span>, the{" "}
-        <span className="text-foreground">Vercel AI SDK</span>, and <span className="text-foreground">Vercel KV</span>.
-      </p>
-      <p className="text-muted-foreground text-sm">
-        Connect an API Key from your provider and send a message to get started.
-      </p>
-    </header>
-  )
 
   const messageList = (
     <div className="my-4 flex h-fit min-h-full flex-col gap-4">
@@ -60,11 +51,11 @@ export default function Rooom({ className, ...props }: React.ComponentProps<"for
           key={index}
           className="max-w-[80%] rounded-xl px-3 py-2 text-sm data-[role=assistant]:self-start data-[role=user]:self-end data-[role=assistant]:bg-gray-100 data-[role=user]:bg-blue-500 data-[role=assistant]:text-black data-[role=user]:text-white"
         >
-          {message.userName}
+          <strong>
+            {message.userName}
+          </strong>
           <br />
           {message.content}
-          <br />
-          {message.insertedAt.toLocaleString()}
         </div>
       ))}
     </div>
@@ -78,7 +69,7 @@ export default function Rooom({ className, ...props }: React.ComponentProps<"for
       )}
       {...props}
     >
-      <div className="flex-1 content-center overflow-y-auto px-6">{messages.length ? messageList : header}</div>
+      <div className="flex-1 content-center overflow-y-auto px-6">{messages.length ? messageList : null}</div>
       <form
         onSubmit={handleSubmit}
         className="border-input bg-background focus-within:ring-ring/10 relative mx-6 mb-6 flex items-center rounded-[16px] border px-3 py-1.5 pr-8 text-sm focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-0"

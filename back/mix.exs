@@ -49,7 +49,8 @@ defmodule Back.MixProject do
       {:bandit, "~> 1.5"},
       {:phoenix_swagger, "~> 0.8"},
       # optional
-      {:ex_json_schema, "~> 0.5"}
+      {:ex_json_schema, "~> 0.5"},
+      {:corsica, "~> 1.1.3"}
     ]
   end
 

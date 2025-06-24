@@ -11,9 +11,15 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarFooter,
 } from "@/components/ui/sidebar"
+import { User } from "@/types"
 
-export function AppSidebar() {
+type AppSidebarProps = {
+  user: User | null
+}
+
+export function AppSidebar({ user }: AppSidebarProps) {
   const [rooms, setRooms] = useState<Room[]>([])
 
   useEffect(() => {
@@ -49,6 +55,9 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+      <SidebarFooter>
+        {user ? (`${user.name}, ID:${user.id}`) : "Not logged in"}
+      </SidebarFooter>
     </Sidebar>
   )
 }

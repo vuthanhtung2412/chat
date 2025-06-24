@@ -2,6 +2,10 @@ defmodule BackWeb.Router do
   use BackWeb, :router
 
   pipeline :api do
+    # TODO: allow localhost in dev and github.io (and its sub-domains) in prod
+    plug Corsica,
+      origins: "*"
+
     plug :accepts, ["json"]
   end
 

@@ -25,7 +25,7 @@ POST http://localhost:4000/api/users
 Content-Type: application/json
 { 
   "user" : {
-    "name": "user1"
+    "name": "user2"
   }
 }
 

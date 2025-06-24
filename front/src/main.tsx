@@ -1,27 +1,54 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import App from "./App.tsx";
+import Home from "@/components/home";
 import Room from "@/components/room";
 import "@/styles/globals.css";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
 import { AppSidebar } from "@/components/app-sidebar"
 import { HashRouter, Routes, Route } from "react-router";
+import { useAuthDialog } from "@/hooks/use-auth-dialog"
+import { UsernameDialog } from "@/components/username-dialog"
+import X from "@/components/x";
+
+function App() {
+  const {
+    user,
+    usernameError,
+    isConnecting,
+    handleUsernameSubmit
+  } = useAuthDialog()
+
+  return (
+    <>
+      <UsernameDialog
+        isOpen={user === null}
+        onSubmit={handleUsernameSubmit}
+        error={usernameError}
+        isConnecting={isConnecting}
+      />
+      <HashRouter>
+        <SidebarProvider>
+          <AppSidebar
+            user={user}
+          />
+          <main className="flex-1 flex flex-col h-screen">
+            <SidebarTrigger />
+            <div className="flex-1">
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="rooms/:room_id" element={<Room />} />
+                <Route path="x" element={<X />} />
+              </Routes>
+            </div>
+          </main>
+        </SidebarProvider>
+      </HashRouter>
+    </>
+  )
+}
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <HashRouter>
-      <SidebarProvider>
-        <AppSidebar />
-        <main className="flex-1 flex flex-col h-screen">
-          <SidebarTrigger />
-          <div className="flex-1">
-            <Routes>
-              <Route path="/" element={<App />} />
-              <Route path="rooms/:room_id" element={<Room />} />
-            </Routes>
-          </div>
-        </main>
-      </SidebarProvider>
-    </HashRouter>
+    <App />
   </StrictMode>
 );
