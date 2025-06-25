@@ -59,9 +59,9 @@ export function AppSidebar({ user }: AppSidebarProps) {
               ))}
             </SidebarMenu>
           </SidebarGroupContent>
-        </SidebarGroup>
+        </SidebarGroup 
       </SidebarContent>
-      <SidebarFooter>
+      <SidebarFooter className="px-4">
         {user ? (`${user.name}, ID:${user.id}`) : "Not logged in"}
       </SidebarFooter>
     </Sidebar>

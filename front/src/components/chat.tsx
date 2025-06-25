@@ -264,6 +264,7 @@ export default function Chat({ user }: ChatProps) {
           <div
             key={index}
             ref={isLast ? lastMessageRef : null}
+            className={`${message.userName === user.name ? "text-green-600" : ""}`}
           >
             <strong>{message.userName}</strong>
             <br />
