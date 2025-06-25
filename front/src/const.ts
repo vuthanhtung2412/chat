@@ -1,5 +1,5 @@
 export const BACKEND_URL = "http://localhost:4000/chat"
-export const PROD_BACKEND_URL = "http://localhost:4000"
+export const PROD_BACKEND_URL = "https://tough-apt-stag.ngrok-free.app/chat"
 export const WS_URL = "ws://localhost:4000/chat/socket/websocket"
-export const PROD_WS_URL = "ws://localhost:4000/socket/websocket"
+export const PROD_WS_URL = "ws://tough-apt-stag.ngrok-free.app/socket/websocket"
 export const GH_PROJECT = "chat"

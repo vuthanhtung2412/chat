@@ -1,10 +1,10 @@
 import { Button } from '@/components/ui/button'
-import { BACKEND_URL } from '@/const'
+import { getBackendUrl } from '@/config'
 export default function X() {
 
   const createUser = async () => {
     try {
-      const res = await fetch(`${BACKEND_URL}/api/users`, {
+      const res = await fetch(`${getBackendUrl()}/api/users`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -29,7 +29,7 @@ export default function X() {
   }
 
   const listUsers = async () => {
-    const res = await fetch(`${BACKEND_URL}/api/users`, {
+    const res = await fetch(`${getBackendUrl()}/api/users`, {
       method: 'GET',
     })
     console.log('listUsers', await res.json())

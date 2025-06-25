@@ -7,8 +7,8 @@ import { Room, RoomMessage } from "@/types"
 import { useState, useEffect, useRef, useCallback } from "react"
 import { useParams } from "react-router"
 import { User } from "@/types"
-import { BACKEND_URL, WS_URL } from "@/const"
 import { ScrollArea } from "@radix-ui/react-scroll-area"
+import { getBackendUrl, getWsUrl } from "@/config"
 
 type ChatProps = {
   user: User
@@ -76,7 +76,7 @@ export default function Chat({ user }: ChatProps) {
     console.log(`Connecting to WebSocket for room ${room_id} and user ${user.id}`)
 
     // Create WebSocket connection
-    const wsUrl = `${WS_URL}?user_id=${user.id}`
+    const wsUrl = `${getWsUrl()}?user_id=${user.id}`
     const ws = new WebSocket(wsUrl)
     wsRef.current = ws
 
@@ -174,7 +174,7 @@ export default function Chat({ user }: ChatProps) {
 
     const fetchMessages = async () => {
       try {
-        const response = await fetch(`${BACKEND_URL}/api/rooms/${room_id}/messages`)
+        const response = await fetch(`${getBackendUrl()}/api/rooms/${room_id}/messages`)
         if (response.ok) {
           const { data } = await response.json()
           setMessages((data as RoomMessage[]).reverse())
@@ -188,7 +188,7 @@ export default function Chat({ user }: ChatProps) {
 
     const fetchRoom = async () => {
       try {
-        const response = await fetch(`${BACKEND_URL}/api/rooms/${room_id}`)
+        const response = await fetch(`${getBackendUrl()}/api/rooms/${room_id}`)
         if (response.ok) {
           const { data } = await response.json()
           setRoom(data)

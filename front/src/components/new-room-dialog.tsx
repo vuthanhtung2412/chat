@@ -10,9 +10,9 @@ import {
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { CirclePlus } from 'lucide-react';
-import { BACKEND_URL } from "@/const"
 import { useState } from "react"
 import { useNavigate } from "react-router"
+import { getBackendUrl } from "@/config";
 // Callback prop for refreshing parent room list
 type NewRoomDialogProps = {
   onRoomCreated?: () => Promise<void> | void
@@ -29,7 +29,7 @@ export function NewRoomDialog({ onRoomCreated }: NewRoomDialogProps) {
     setIsLoading(true)
 
     try {
-      const response = await fetch(`${BACKEND_URL}/api/rooms`, {
+      const response = await fetch(`${getBackendUrl()}/api/rooms`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

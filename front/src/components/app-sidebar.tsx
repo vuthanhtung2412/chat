@@ -1,7 +1,6 @@
 import { useEffect, useState, useRef } from "react"
 import { Room } from "@/types"
 import { Link } from "react-router"
-import { BACKEND_URL } from "@/const"
 import {
   Sidebar,
   SidebarContent,
@@ -19,6 +18,7 @@ import { NewRoomDialog } from "./new-room-dialog"
 import { Input } from "@/components/ui/input"
 // const uFuzzy = require('@leeoniya/ufuzzy');
 import uFuzzy from "@leeoniya/ufuzzy"
+import { getBackendUrl } from "@/config"
 
 type AppSidebarProps = {
   user: User | null
@@ -31,7 +31,7 @@ export function AppSidebar({ user }: AppSidebarProps) {
   // Fetch rooms function to load and refresh room list
   const fetchRooms = async () => {
     try {
-      const response = await fetch(`${BACKEND_URL}/api/rooms`)
+      const response = await fetch(`${getBackendUrl()}/api/rooms`)
       if (response.ok) {
         const { data } = await response.json()
         setRooms(data)

@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { User } from "@/types"
-import { BACKEND_URL } from "@/const"
+import { getBackendUrl } from "@/config"
 
 export function useAuthDialog() {
   const [usernameError, setUsernameError] = useState<string>("")
@@ -13,7 +13,7 @@ export function useAuthDialog() {
 
     try {
       // Try to get existing user
-      const response = await fetch(`${BACKEND_URL}/api/users/name/${username}`)
+      const response = await fetch(`${getBackendUrl()}/api/users/name/${username}`)
 
       if (response.ok) {
         // User exists
@@ -23,7 +23,7 @@ export function useAuthDialog() {
       } else {
         console.log('User not found, creating new user...')
         // User doesn't exist, create new user
-        const createResponse = await fetch(`${BACKEND_URL}/api/users`, {
+        const createResponse = await fetch(`${getBackendUrl()}/api/users`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
