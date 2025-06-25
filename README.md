@@ -1,12 +1,26 @@
-# Elixir Chat App
+# Chat App with Elixir and Phoenix
 
-- [ ] 1 room that can joined and left
+## How to start
+
+```bash
+brew isntall mise
+cd start
+mise trust
+mise install
+mix deps.get
+cd ..
+mprocs
+```
+
+## Features
+
+- [x] rooms that can joined and left
 - [ ] Frontend with vite deployed to github pages
-- [ ] Real-time updates using Phoenix Channels
+- [x] Real-time updates using Phoenix Channels
 - [ ] Deployed on local machine using Docker/Traefik/Ngrok
-- [ ] Load old messages
+- [x] Load old messages
 
-# DB schema
+## DB schema
 
 ```ts
 type User = {
