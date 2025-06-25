@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { User } from "@/types"
-import { BACKEND_URL } from "../const"
+import { BACKEND_URL } from "@/const"
 
 export function useAuthDialog() {
   const [usernameError, setUsernameError] = useState<string>("")

@@ -35,7 +35,7 @@ export default function Chat({ user }: ChatProps) {
   const [room, setRoom] = useState<Room | null>(null)
   const [input, setInput] = useState<string>("")
   const [isConnected, setIsConnected] = useState<boolean>(false)
-  const [isConnecting, setIsConnecting] = useState<boolean>(false)
+  const [_isConnecting, setIsConnecting] = useState<boolean>(false)
   const { room_id } = useParams()
   const wsRef = useRef<WebSocket | null>(null)
   const reconnectTimeoutRef = useRef<NodeJS.Timeout | null>(null)
@@ -116,7 +116,7 @@ export default function Chat({ user }: ChatProps) {
           const newMessage: RoomMessage = {
             content: message.payload.content,
             userName: message.payload.userName || 'Unknown',
-            insertedAt: message.payload.insertedAt || new Date().toISOString()
+            insertedAt: message.payload.insertedAt ? new Date(message.payload.insertedAt) : new Date()
           }
 
           setMessages(prevMessages => [...prevMessages, newMessage])
