@@ -15,7 +15,7 @@ defmodule BackWeb.Endpoint do
   ]
 
   socket "/socket", BackWeb.UserSocket,
-    websocket: true,
+    websocket: [check_origin: false],
     longpoll: false
 
   socket "/live", Phoenix.LiveView.Socket,
