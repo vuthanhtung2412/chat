@@ -10,7 +10,8 @@ defmodule BackWeb.Router do
   end
 
   # https://hexdocs.pm/phoenix/json_and_apis.html
-  scope "/api", BackWeb do
+  # back/lib/back_web/router.ex
+  scope Const.prefix() <> "/api", BackWeb do
     pipe_through :api
     resources "/users", UserController, except: [:new, :edit]
     # TODO: This is not clean

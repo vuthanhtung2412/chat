@@ -14,7 +14,7 @@ defmodule BackWeb.Endpoint do
     same_site: "Lax"
   ]
 
-  socket "/socket", BackWeb.UserSocket,
+  socket Const.prefix() <> "/socket", BackWeb.UserSocket,
     websocket: true,
     longpoll: false
 

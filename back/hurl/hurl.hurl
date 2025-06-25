@@ -1,12 +1,12 @@
-GET http://localhost:4000/api/users
-GET http://localhost:4000/api/404
-GET http://localhost:4000/api/users/name/user1
-GET http://localhost:4000/api/users/name/first%20user
-GET http://localhost:4000/api/rooms
-GET http://localhost:4000/api/messages
-GET http://localhost:4000/api/rooms/1/messages
+GET http://localhost:4000/chat/api/users
+GET http://localhost:4000/chat/api/404
+GET http://localhost:4000/chat/api/users/name/user1
+GET http://localhost:4000/chat/api/users/name/first%20user
+GET http://localhost:4000/chat/api/rooms
+GET http://localhost:4000/chat/api/messages
+GET http://localhost:4000/chat/api/rooms/1/messages
 
-POST http://localhost:4000/api/users
+POST http://localhost:4000/chat/api/users
 Content-Type: application/json
 { 
   "user" : {
@@ -14,7 +14,7 @@ Content-Type: application/json
   }
 }
 
-POST http://localhost:4000/api/users
+POST http://localhost:4000/chat/api/users
 Content-Type: application/json
 { 
   "user" : {
@@ -22,7 +22,7 @@ Content-Type: application/json
   }
 }
 
-POST http://localhost:4000/api/users
+POST http://localhost:4000/chat/api/users
 Content-Type: application/json
 { 
   "user" : {
@@ -30,7 +30,7 @@ Content-Type: application/json
   }
 }
 
-POST http://localhost:4000/api/rooms
+POST http://localhost:4000/chat/api/rooms
 Content-Type: application/json
 { 
   "room" : {
@@ -38,7 +38,7 @@ Content-Type: application/json
   }
 }
 
-POST http://localhost:4000/api/messages
+POST http://localhost:4000/chat/api/messages
 Content-Type: application/json
 { 
   "message" : {
