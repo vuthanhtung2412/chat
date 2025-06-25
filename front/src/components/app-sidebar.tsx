@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import { Room } from "@/types"
 import { Link } from "react-router"
 import { BACKEND_URL } from "@/const"
@@ -16,6 +16,9 @@ import {
 } from "@/components/ui/sidebar"
 import { User } from "@/types"
 import { NewRoomDialog } from "./new-room-dialog"
+import { Input } from "@/components/ui/input"
+// const uFuzzy = require('@leeoniya/ufuzzy');
+import uFuzzy from "@leeoniya/ufuzzy"
 
 type AppSidebarProps = {
   user: User | null
@@ -23,6 +26,8 @@ type AppSidebarProps = {
 
 export function AppSidebar({ user }: AppSidebarProps) {
   const [rooms, setRooms] = useState<Room[]>([])
+  const [searchTerm, setSearchTerm] = useState("")
+  const uf = useRef(new uFuzzy({}))
   // Fetch rooms function to load and refresh room list
   const fetchRooms = async () => {
     try {
@@ -44,19 +49,30 @@ export function AppSidebar({ user }: AppSidebarProps) {
     <Sidebar>
       <SidebarHeader>
         <NewRoomDialog onRoomCreated={fetchRooms} />
+        <Input
+          value={searchTerm}
+          onChange={(e) => {
+            setSearchTerm(e.target.value)
+          }}
+          placeholder="Filter room by name" />
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Rooms</SidebarGroupLabel>
+          <SidebarGroupLabel className="text-lg font-bold">
+            Rooms
+          </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {rooms.map((room) => (
-                <SidebarMenuItem key={room.name}>
-                  <SidebarMenuButton asChild>
-                    <Link to={`/rooms/${room.id}`}>{room.name}</Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
+              {rooms.map((room, id) => (
+                searchTerm === "" ||
+                uf.current.filter(rooms.map((r) => r.name), searchTerm)?.includes(id)
+              ) && (
+                  <SidebarMenuItem key={room.name}>
+                    <SidebarMenuButton asChild>
+                      <Link to={`/rooms/${room.id}`}>{room.name}</Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ))}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
