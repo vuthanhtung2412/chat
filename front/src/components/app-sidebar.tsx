@@ -27,7 +27,7 @@ type AppSidebarProps = {
 export function AppSidebar({ user }: AppSidebarProps) {
   const [rooms, setRooms] = useState<Room[]>([])
   const [searchTerm, setSearchTerm] = useState("")
-  const uf = useRef(new uFuzzy({}))
+  const uf = useRef(new uFuzzy({ intraMode: 1, intraIns: 1 }))
   // Fetch rooms function to load and refresh room list
   const fetchRooms = async () => {
     try {
