@@ -6,3 +6,30 @@ elixir = "1.17.0"
 description = "Start the server"
 run = "mix phx.server"
 
+[tasks.install]
+description = "Install dependencies"
+run = "mix deps.get"
+
+[tasks.migrate]
+description = "DB migration"
+run = "mix ecto.migrate"
+
+[tasks.reset_db]
+description = "reset the database"
+run = "mix ecto.drop && mix ecto.create && mix ecto.migrate"
+
+[tasks.build_image]
+description = "build docker image"
+# You can change elixir-chat to your desired image name
+run = "docker build -t elixir-chat ."
+
+[tasks.run_container]
+description = "Run docker container"
+# You can change elixir-chat to your desired image name
+run = """
+touch database.db && \
+docker run --name elixir-chat-container \
+  -p 4000:4000 \
+  -v "$(pwd)/database.db:/app/database.db" \
+  elixir-chat:latest
+"""
