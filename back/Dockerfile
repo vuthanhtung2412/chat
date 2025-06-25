@@ -99,7 +99,7 @@ USER nobody
 # ENTRYPOINT ["/tini", "--"]
 
 # TODO: find a better to set these
-ENV DATABASE_PATH=../database.db
+ENV DATABASE_PATH=/data/database.db
 ENV SECRET_KEY_BASE=a
 
 CMD ["/app/bin/server"]

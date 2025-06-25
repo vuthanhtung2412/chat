@@ -22,6 +22,9 @@ erl_crash.dump
 # Temporary files, for example, from tests.
 /tmp/
 
+# docker data file
+/data/
+
 # Ignore package tarball (built via "mix hex.build").
 back-*.tar
 
