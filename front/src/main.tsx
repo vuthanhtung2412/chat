@@ -36,7 +36,18 @@ function App() {
             <div className="flex-1">
               <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="rooms/:room_id" element={<Chat />} />
+                <Route
+                  path="rooms/:room_id"
+                  element={
+                    user ? (
+                      <Chat user={user} />
+                    ) : (
+                      <div className="flex-1 flex items-center justify-center text-muted-foreground">
+                        Please login to view the chat.
+                      </div>
+                    )
+                  }
+                />
                 <Route path="x" element={<X />} />
               </Routes>
             </div>
