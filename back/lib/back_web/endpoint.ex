@@ -1,8 +1,14 @@
 defmodule BackWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :back
 
+  # TODO: allow localhost in dev and github.io (and its sub-domains) in prod
+  # Corsica is used to handle CORS on the browser side
+  # Browser compare Access-Control-Allow-Origin and Origin headers
   plug Corsica,
-    origins: "*"
+    origins: "*",
+    # or ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
+    allow_methods: :all,
+    allow_headers: ["Content-Type", "Authorization", "Accept"]
 
   # The session will be stored in the cookie and signed,
   # this means its contents can be read but not tampered with.
