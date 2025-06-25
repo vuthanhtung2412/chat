@@ -5,4 +5,4 @@ export const GH_PROJECT = "chat"
 export const BACKEND_URL = `http://${HOST}/${GH_PROJECT}`
 export const PROD_BACKEND_URL = `https://${PROD_HOST}/${GH_PROJECT}`
 export const WS_URL = `ws://${HOST}/${GH_PROJECT}/socket/websocket`
-export const PROD_WS_URL = `ws://${PROD_HOST}/${GH_PROJECT}/socket/websocket`
+export const PROD_WS_URL = `wss://${PROD_HOST}/${GH_PROJECT}/socket/websocket`
