@@ -32,7 +32,7 @@ description = "Run docker container"
 # You can change elixir-chat to your desired image name
 run = """
 docker rm -f elixir-chat-container && \
-docker run --name elixir-chat-container \
+docker run -itd --name elixir-chat-container \
   -p 4000:4000 \
   -v "$(pwd)/data:/data" \
   elixir-chat:latest

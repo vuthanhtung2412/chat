@@ -1,4 +1,5 @@
 GET http://localhost:4000/api/users
+GET http://localhost:4000/api/404
 GET http://localhost:4000/api/users/name/user1
 GET http://localhost:4000/api/users/name/first%20user
 GET http://localhost:4000/api/rooms
