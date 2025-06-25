@@ -85,6 +85,9 @@ ENV LC_ALL=en_US.UTF-8
 WORKDIR "/app"
 RUN chown nobody /app
 
+# ensure /data directory exists and is writable
+RUN mkdir -p /data && chown nobody:root /data
+
 # set runner ENV
 ENV MIX_ENV="prod"
 
