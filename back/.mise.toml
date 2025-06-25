@@ -10,6 +10,10 @@ run = "mix phx.server"
 description = "Install dependencies"
 run = "mix deps.get"
 
+[tasks.build_release]
+description = "Build the release"
+run = "mix release"
+
 [tasks.migrate]
 description = "DB migration"
 run = "mix ecto.migrate"
@@ -27,6 +31,8 @@ run = "docker build -t elixir-chat ."
 description = "Run docker container"
 # You can change elixir-chat to your desired image name
 run = """
+docker rm -f elixir-chat-container && \
+rm -f database.db && \
 touch database.db && \
 docker run --name elixir-chat-container \
   -p 4000:4000 \
