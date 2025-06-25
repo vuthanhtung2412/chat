@@ -8,6 +8,7 @@ import { useState, useEffect, useRef, useCallback } from "react"
 import { useParams } from "react-router"
 import { User } from "@/types"
 import { BACKEND_URL, WS_URL } from "@/const"
+import { ScrollArea } from "@radix-ui/react-scroll-area"
 
 type ChatProps = {
   user: User
@@ -263,28 +264,25 @@ export default function Chat({ user }: ChatProps) {
           <div
             key={index}
             ref={isLast ? lastMessageRef : null}
-            className="max-w-[80%] rounded-xl px-3 py-2 text-sm data-[role=assistant]:self-start data-[role=user]:self-end data-[role=assistant]:bg-gray-100 data-[role=user]:bg-blue-500 data-[role=assistant]:text-black data-[role=user]:text-white"
           >
             <strong>{message.userName}</strong>
             <br />
             {message.content}
+            <br />
+            ---
           </div>
         );
       })}
     </div>
   );
 
-  return (
 
-    <div
-      className={cn(
-        "ring-none flex h-full w-full flex-col items-stretch border-none bg-background text-foreground",
-      )}
-    >
-      {/* Fixed header - always visible at top */}
+  return (
+    <div className="flex h-screen w-full flex-col bg-background text-foreground">
+      {/* Sticky header */}
       {room && (
         <div className="sticky top-0 z-10 flex items-center justify-between border-b bg-background px-6 py-4 backdrop-blur-sm">
-          <h1 className="text-2xl font-bold text-foreground">{room.name}</h1>
+          <h1 className="text-2xl font-bold">{room.name}</h1>
           <div className={cn(
             "flex items-center gap-2 text-sm",
             isConnected ? "text-green-600" : "text-red-600"
@@ -298,40 +296,40 @@ export default function Chat({ user }: ChatProps) {
         </div>
       )}
 
-      {/* Scrollable message area */}
-      {/* TODO: Scroll animation to be fixed */}
-      <div className="flex-1 overflow-y-auto bg-background px-6">
-        {messages.length ? messageList : null}
-      </div>
+      {/* Scrollable content area (messages + input) */}
+      <div className="flex flex-1 flex-col overflow-auto">
+        <ScrollArea className="flex-1 px-6">
+          {messages.length ? messageList : null}
+        </ScrollArea>
 
-      {/* Fixed input form - always visible at bottom */}
-      <div className="sticky bottom-0 z-10 border-t bg-background px-6 pb-6 pt-4 backdrop-blur-sm">
-        <form
-          onSubmit={handleSubmit}
-          className="border-input bg-card focus-within:ring-ring/10 relative flex items-center rounded-[16px] border px-3 py-1.5 pr-8 text-sm shadow-sm focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-0"
-        >
-          <AutoResizeTextarea
-            onKeyDown={handleKeyDown}
-            onChange={(v) => setInput(v)}
-            value={input}
-            placeholder={isConnected ? "Enter a message" : "Connecting..."}
-            disabled={!isConnected}
-            className="placeholder:text-muted-foreground flex-1 bg-transparent focus:outline-none disabled:opacity-50"
-          />
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button
-                variant="ghost"
-                size="sm"
-                className="absolute bottom-1 right-1 size-6 rounded-full"
-                disabled={!isConnected || !input.trim()}
-              >
-                <ArrowUpIcon size={16} />
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent sideOffset={12}>Submit</TooltipContent>
-          </Tooltip>
-        </form>
+        <div className="sticky bottom-0 border-t bg-background px-6 pb-6 pt-4">
+          <form
+            onSubmit={handleSubmit}
+            className="border-input bg-card focus-within:ring-ring/10 relative flex items-center rounded-[16px] border px-3 py-1.5 pr-8 text-sm shadow-sm focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-0"
+          >
+            <AutoResizeTextarea
+              onKeyDown={handleKeyDown}
+              onChange={(v) => setInput(v)}
+              value={input}
+              placeholder={isConnected ? "Enter a message" : "Connecting..."}
+              disabled={!isConnected}
+              className="placeholder:text-muted-foreground flex-1 bg-transparent focus:outline-none disabled:opacity-50"
+            />
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="absolute bottom-1 right-1 size-6 rounded-full"
+                  disabled={!isConnected || !input.trim()}
+                >
+                  <ArrowUpIcon size={16} />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent sideOffset={12}>Submit</TooltipContent>
+            </Tooltip>
+          </form>
+        </div>
       </div>
     </div>
   );

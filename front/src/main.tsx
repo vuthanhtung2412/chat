@@ -32,25 +32,23 @@ function App() {
             user={user}
           />
           <main className="flex-1 flex flex-col h-screen">
-            <SidebarTrigger />
-            <div className="flex-1">
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route
-                  path="rooms/:room_id"
-                  element={
-                    user ? (
-                      <Chat user={user} />
-                    ) : (
-                      <div className="flex-1 flex items-center justify-center text-muted-foreground">
-                        Please login to view the chat.
-                      </div>
-                    )
-                  }
-                />
-                <Route path="x" element={<X />} />
-              </Routes>
-            </div>
+            <SidebarTrigger className="fixed z-20" />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route
+                path="rooms/:room_id"
+                element={
+                  user ? (
+                    <Chat user={user} />
+                  ) : (
+                    <div className="justify-center">
+                      Please login to view the chat.
+                    </div>
+                  )
+                }
+              />
+              <Route path="x" element={<X />} />
+            </Routes>
           </main>
         </SidebarProvider>
       </HashRouter>
